@@ -1,9 +1,8 @@
-import {isNumber} from "ant-design-vue/es/_util/hooks/_vueuse/is";
+import {isEmpty} from "@/utils/data/dataUtil";
 
-const languageKey = 'language';
 const themeKey = 'theme';
-const storageKey = 'sessionStorage';//or localStorage
-const defaultExpireTime = 6 * 1000;//6s
+const storageKey = 'sessionStorage';
+const defaultExpireTime = 60 * 1000;
 
 function saveD(key, value) {
     save(key, value, defaultExpireTime);
@@ -30,10 +29,15 @@ function save(key, value, expireTime) {
     }
     throw 'expireTime should be number';
 }
-
+function isNumber(target){
+    return Number(target)>0 && Number.isInteger(Number(target));
+}
 function get(key) {
     try {
         const target = window[storageKey].getItem(key);
+        if(isEmpty(target)){
+            return null;
+        }
         const jsonTarget = JSON.parse(decodeURIComponent(target));
         const {
             value,
@@ -52,4 +56,4 @@ function get(key) {
     }
 }
 
-export {languageKey, themeKey, saveD, save, get};
+export {themeKey, saveD, save, get};
