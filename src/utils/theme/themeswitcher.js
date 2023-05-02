@@ -147,7 +147,6 @@ function createLinkElementByPath(path, tag) {
     link.setAttribute('rel', 'stylesheet')
     link.setAttribute('type', 'text/css')
     link.setAttribute('vue-theme-switcher', tag)
-    // link.setAttribute('media','print');
     link.setAttribute('href', path);
     link.onload = () => {
         closeTransitionAction();
