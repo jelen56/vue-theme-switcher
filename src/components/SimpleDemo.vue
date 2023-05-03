@@ -46,18 +46,14 @@ import {defineProps} from 'vue';
 defineProps({
   msg: String
 });
-//change theme in component
 const reload = inject('reload');
 
 function onChangeTheme() {
-  //no callback
-  //changeTheme();
-  //with changeHanlder
   changeTheme(() => {
-    alert('start changing theme');
+    console.log('start changing theme');
   }, () => {
     reload();
-    alert('end changing theme');
+    console.log('end changing theme');
   });
 }
 </script>
