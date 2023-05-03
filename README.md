@@ -4,7 +4,7 @@
 > styles you can use this,Rather than saying that this is a tool, it is better to say that this is an idea of a theme
 > switching
 
-### four steps u need to do:
+### Four steps u need to do:
 
 - Configure all theme styles in the specified directory or url,like this(put ur css files in `dark` or `light` floder):
 
@@ -65,7 +65,7 @@ function renderApp() {
 </script>
 ```
 
-- call 'changeTheme' function to start changing theme:
+- call `changeTheme` function to start changing theme:
 ```html
 
 <template>
