@@ -4,13 +4,14 @@ import App from './App.vue'
 import {initTheme, theme} from "@/utils/theme/themeswitcher";
 //initTheme
 function renderApp() {
-    const app = createApp(App).use(initTheme({
+    const app = createApp(App);
+    initTheme({
         localCssBasePath: '/css',
         // remoteCssBaseUrl:'https://google.com/css',
-        targetTheme: theme.light,
+        defaultTheme: theme.light,
         baseCss: ['base.css'],
-        themeCss: ['app.css', 'helloworld.css']
-    }));
+        themeCss: ['app.css', 'hello-world.css']
+    })
     app.mount('#app');
 }
 renderApp();

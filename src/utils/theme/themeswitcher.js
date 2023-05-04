@@ -15,11 +15,11 @@ const themeConfig = {
     remoteCssBaseUrl: '',
     targetTheme: theme.light,
     baseCss: ['base.css'],
-    themeCss: ['app.css', 'helloworld.css']
+    themeCss: ['app.css', 'hello-world.css']
 }
 
-function initTheme({localCssBasePath, remoteCssBaseUrl, targetTheme, baseCss, themeCss}) {
-    initConfig({localCssBasePath, remoteCssBaseUrl, targetTheme, baseCss, themeCss});
+function initTheme({localCssBasePath, remoteCssBaseUrl, defaultTheme, baseCss, themeCss}) {
+    initConfig({localCssBasePath, remoteCssBaseUrl, defaultTheme, baseCss, themeCss});
     const themeTemp = get(themeKey);
     if (isEmpty(themeTemp)) {
         saveD(themeKey, themeConfig.targetTheme);
@@ -34,24 +34,25 @@ function currentTheme() {
 }
 
 function isLegal(target) {
-    if (isEmpty(target) | typeof (target) != 'string') {
+    if (isEmpty(target) || typeof (target) != 'string') {
         return false;
     }
-    if (contain(theme, target)) {
-        return true;
-    }
-    return false;
+    return !!contain(theme, target);
+
 }
 
-function initConfig({basePath, baseUrl, targetTheme, baseCss, themeCss}) {
-    if (!isEmpty(basePath)) {
-        themeConfig.localCssBasePath = basePath;
+function initConfig({localCssBasePath, remoteCssBaseUrl, defaultTheme, baseCss, themeCss}) {
+    let result;
+    if (!isEmpty(localCssBasePath)) {
+        themeConfig.localCssBasePath = localCssBasePath;
+        result=true;
     }
-    if (!isEmpty(baseUrl)) {
-        themeConfig.remoteCssBaseUrl = baseUrl;
+    if (!isEmpty(remoteCssBaseUrl)) {
+        themeConfig.remoteCssBaseUrl = remoteCssBaseUrl;
+        result=true;
     }
-    if (isLegal(targetTheme)) {
-        themeConfig.targetTheme = targetTheme;
+    if (result&&isLegal(defaultTheme)) {
+        themeConfig.targetTheme = defaultTheme;
     }
     if (!isEmpty(baseCss)) {
         themeConfig.baseCss = baseCss;
@@ -59,7 +60,11 @@ function initConfig({basePath, baseUrl, targetTheme, baseCss, themeCss}) {
     if (!isEmpty((themeCss))) {
         themeConfig.themeCss = themeCss;
     }
+    if(!result){
+        throw 'initConfig parameters error'
+    }
 }
+
 
 
 function changeTheme(startChangeHandler, endChangeHandler) {
@@ -122,7 +127,7 @@ function doTransitionAction() {
 }
 
 function closeTransitionAction() {
-    if (document.body.style.display == 'none') {
+    if (document.body.style.display === 'none') {
         document.body.style.display = 'block';
     }
 }

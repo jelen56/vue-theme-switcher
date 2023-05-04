@@ -28,7 +28,7 @@ function renderApp() {
         // remoteCssBaseUrl:'https://xxxx/css',
         defaultTheme: theme.light,
         baseCss: ['base.css'],
-        themeCss: ['app.css', 'helloworld.css']
+        themeCss: ['app.css', 'hello-world.css']
     }));
     app.mount('#app');
 }
